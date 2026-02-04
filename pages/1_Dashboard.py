@@ -2,7 +2,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import pandas as pd
 import re
-from auth import init_session_state, require_auth
+from auth import init_session_state, require_auth, render_page_header
 from database import get_all_entries
 
 # Initialize session state
@@ -11,11 +11,15 @@ init_session_state()
 st.set_page_config(
     page_title="Dashboard - AI Tracker",
     page_icon="📊",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 # Require authentication
 require_auth()
+
+# Page header with logout
+render_page_header()
 
 # Custom CSS
 st.markdown("""
