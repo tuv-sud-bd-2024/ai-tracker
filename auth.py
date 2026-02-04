@@ -62,7 +62,7 @@ def render_page_header():
         with col_user:
             st.markdown(f"Logged in as: **{st.session_state.user}**")
         with col_logout:
-            if st.button("Logout", key="logout_btn"):
+            if st.button("Logout", key="logout_btn", type="primary"):
                 logout()
                 st.switch_page("app.py")
 
