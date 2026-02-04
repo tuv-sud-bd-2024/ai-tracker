@@ -41,20 +41,6 @@ st.markdown("""
         margin-bottom: 1.5rem;
         border-left: 4px solid #1E88E5;
     }
-    .video-container {
-        position: relative;
-        width: 100%;
-        padding-bottom: 56.25%;
-        height: 0;
-        overflow: hidden;
-    }
-    .video-container iframe {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -81,13 +67,17 @@ def render_video(video_link):
     youtube_id = extract_youtube_id(video_link)
     if youtube_id:
         embed_url = f"https://www.youtube.com/embed/{youtube_id}"
-        components.iframe(embed_url, height=250)
+        video_html = f'''<iframe src="{embed_url}" width="100%" height="100%"
+            style="border:0;"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media;
+            gyroscope; picture-in-picture" allowfullscreen></iframe>'''
+        components.html(video_html, height=220)
     else:
         # For non-YouTube direct video files
         if video_link.lower().endswith(('.mp4', '.webm', '.ogg')):
             st.video(video_link)
         else:
-            st.markdown(f"[🔗 Watch Video]({video_link})")
+            st.markdown(f"[Watch Video]({video_link})")
 
 def main():
     st.title("📊 Dashboard")
