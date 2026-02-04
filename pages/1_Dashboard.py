@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import pandas as pd
 import re
 from auth import init_session_state, require_auth
@@ -62,8 +63,8 @@ def extract_youtube_id(url):
     if not url:
         return None
     patterns = [
-        r'(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)',
-        r'youtube\.com\/v\/([^&\n?#]+)',
+        r'(?:youtube\.com|youtu\.be|youtube-nocookie\.com)\/(?:watch\?v=|embed\/|v\/|shorts\/)?([a-zA-Z0-9_-]{11})',
+        r'youtu\.be\/([a-zA-Z0-9_-]{11})',
     ]
     for pattern in patterns:
         match = re.search(pattern, url)
@@ -79,21 +80,14 @@ def render_video(video_link):
 
     youtube_id = extract_youtube_id(video_link)
     if youtube_id:
-        st.markdown(f'''
-            <div class="video-container">
-                <iframe src="https://www.youtube.com/embed/{youtube_id}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen>
-                </iframe>
-            </div>
-        ''', unsafe_allow_html=True)
+        embed_url = f"https://www.youtube.com/embed/{youtube_id}"
+        components.iframe(embed_url, height=250)
     else:
-        # Try to use st.video for other video links
-        try:
+        # For non-YouTube direct video files
+        if video_link.lower().endswith(('.mp4', '.webm', '.ogg')):
             st.video(video_link)
-        except:
-            st.markdown(f"[Video Link]({video_link})")
+        else:
+            st.markdown(f"[🔗 Watch Video]({video_link})")
 
 def main():
     st.title("📊 Dashboard")
