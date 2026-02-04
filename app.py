@@ -35,6 +35,15 @@ st.markdown("""
     .stButton > button {
         width: 100%;
     }
+    [data-testid="stFormSubmitButton"] button {
+        background-color: #2e7d32 !important;
+        color: white !important;
+        border-color: #2e7d32 !important;
+    }
+    [data-testid="stFormSubmitButton"] button:hover {
+        background-color: #1b5e20 !important;
+        border-color: #1b5e20 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
