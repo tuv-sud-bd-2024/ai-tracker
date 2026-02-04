@@ -1,5 +1,5 @@
 import streamlit as st
-from auth import init_session_state, require_auth
+from auth import init_session_state, require_auth, render_page_header
 from database import get_all_entries, get_entry_by_id, update_entry, delete_entry
 
 # Initialize session state
@@ -8,11 +8,15 @@ init_session_state()
 st.set_page_config(
     page_title="Edit Entry - AI Tracker",
     page_icon="✏️",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 # Require authentication
 require_auth()
+
+# Page header with logout
+render_page_header()
 
 def main():
     st.title("✏️ Edit Entry")

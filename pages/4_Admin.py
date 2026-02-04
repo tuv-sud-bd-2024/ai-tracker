@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from auth import init_session_state, require_admin, hash_password
+from auth import init_session_state, require_admin, hash_password, render_page_header
 from database import get_all_users, create_user, update_user_password, delete_user, get_user_by_id
 
 # Initialize session state
@@ -9,11 +9,15 @@ init_session_state()
 st.set_page_config(
     page_title="Admin - AI Tracker",
     page_icon="👑",
-    layout="wide"
+    layout="wide",
+    initial_sidebar_state="collapsed"
 )
 
 # Require admin access
 require_admin()
+
+# Page header with logout
+render_page_header()
 
 def main():
     st.title("👑 Admin Panel")

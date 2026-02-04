@@ -55,6 +55,17 @@ def require_admin():
         st.error("You do not have permission to access this page.")
         st.stop()
 
+def render_page_header():
+    """Render logout button and user info at the top of every page."""
+    if st.session_state.get('logged_in', False):
+        col_spacer, col_user, col_logout = st.columns([6, 2, 1])
+        with col_user:
+            st.markdown(f"Logged in as: **{st.session_state.user}**")
+        with col_logout:
+            if st.button("Logout", key="logout_btn"):
+                logout()
+                st.switch_page("app.py")
+
 def setup_default_admin():
     """Create default admin user if no users exist."""
     init_db()
