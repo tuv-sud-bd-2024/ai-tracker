@@ -1,11 +1,24 @@
 # Database
+# Ignore all sqlite db files in data directory and app.db specifically
 data/*.db
+/data/app.db
 
-# Python
+# Python cache and artifacts
 __pycache__/
 *.pyc
 *.pyo
 
-# Environment
-.env
+# Virtual environment
+.venv/
 venv/
+env/
+.env
+
+# Editor and OS files
+.vscode/
+.idea/
+.DS_Store
+
+# Logs
+*.log
+
